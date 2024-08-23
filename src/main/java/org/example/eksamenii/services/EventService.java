@@ -7,6 +7,8 @@ import org.example.eksamenii.repositories.DisciplineRepository;
 import org.example.eksamenii.repositories.EventRepository;
 import org.example.eksamenii.repositories.TimeSlotRepository;
 import org.example.eksamenii.repositories.TrackRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,6 +18,9 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(EventService.class);
+
 
     @Autowired
     private TrackRepository trackRepository;
@@ -27,7 +32,9 @@ public class EventService {
     private TimeSlotRepository timeSlotRepository;
 
     public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+        List<Event> events = eventRepository.findAll();
+        logger.info("Fetched {} events", events.size());
+        return events;
     }
 
     public Event getEventById(int id) {
